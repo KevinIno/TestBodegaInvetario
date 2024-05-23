@@ -8,6 +8,7 @@
 <h1> Actualizar Producto </h1>
 
 <form method="post">
+
     {% csrf_token %}
     {{ form|crispy }}
     <input class="btn btn-success" type="submit" value="Guardar">

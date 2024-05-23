@@ -1,4 +1,3 @@
-
 # invsist
 (Tutorial)
 
@@ -7,7 +6,7 @@
 1. Clonar el repositorio: 
 
 ```
-git clone https://github.com/KevinIno/TestBodegaInvetario
+git clone https://github.com/blasferna/invsist
 ```
 
 2. Crear el entorno virtual

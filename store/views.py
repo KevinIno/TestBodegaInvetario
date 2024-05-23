@@ -21,10 +21,18 @@ class BuyerListView(LoginRequiredMixin, SearchViewMixin, SingleTableMixin, ListV
     search_fields = ['name']
     template_name = 'store/buyer_list.html'
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        query = self.request.GET.get('q')
+        if query:
+            queryset = queryset.filter(name__icontains=query)
+        return queryset
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['update_url'] = 'buyer_update'
         return context
+
 
 class BuyerCreateView(LoginRequiredMixin, CreateView):
     model = Buyer
@@ -55,10 +63,18 @@ class SupplierListView(LoginRequiredMixin, SearchViewMixin, SingleTableMixin, Li
     search_fields = ['name']
     template_name = 'store/supplier_list.html'
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        query = self.request.GET.get('q')
+        if query:
+            queryset = queryset.filter(name__icontains=query)
+        return queryset
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['update_url'] = 'supplier_update'
         return context
+
 
 class SupplierCreateView(LoginRequiredMixin, CreateView):
     model = Supplier

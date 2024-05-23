@@ -1,16 +1,21 @@
-{% extends 'base.html' %}
-{% load crispy_forms_tags %}
-{% block title %} Añadir categoria {% endblock %}
-
+{% extends "base.html" %}
 {% block content %}
-
-<h1> Añadir Categoria </h1>
-
-<form method="post">
+  <h2>Crear nueva categoría</h2>
+  <form method="post">
     {% csrf_token %}
-    {{ form|crispy }}
-    <input class="btn btn-success" type="submit" value="Guardar">
-    <a class="btn btn-primary" href="{% url 'category_list' %}"> Cancelar </a>
-</form>
-
+    {{ form.as_p }}
+    <button type="submit">Guardar</button>
+  </form>
+  {% if form.errors %}
+    <div class="error">
+      <p>Por favor corrige los siguientes errores:</p>
+      <ul>
+        {% for field in form %}
+          {% for error in field.errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
 {% endblock %}

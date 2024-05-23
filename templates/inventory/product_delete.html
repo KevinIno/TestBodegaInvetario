@@ -4,7 +4,9 @@
 {% block content %}
 <h1>Eliminar Producto </h1>
 
-<form method="post">{% csrf_token %}
+<form method="post">
+
+    {% csrf_token %}
     <p>Desea eliminar "{{ object }}"?</p>
     <input type="submit" value="Confirm">
     <a href="{% url 'product_list' %}"> Cancelar </a>

@@ -21,10 +21,18 @@ class BrandListView(LoginRequiredMixin, SearchViewMixin, SingleTableMixin, ListV
     search_fields = ['name']
     template_name = 'inventory/brand_list.html'
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        query = self.request.GET.get('q')
+        if query:
+            queryset = queryset.filter(name__icontains=query)
+        return queryset
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['update_url'] = 'brand_update'
         return context
+
 
 class BrandCreateView(LoginRequiredMixin, CreateView):
     model = Brand
@@ -55,10 +63,18 @@ class CategoryListView(LoginRequiredMixin, SearchViewMixin, SingleTableMixin, Li
     search_fields = ['name']
     template_name = 'inventory/category_list.html'
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        query = self.request.GET.get('q')
+        if query:
+            queryset = queryset.filter(name__icontains=query)
+        return queryset
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['update_url'] = 'category_update'
         return context
+
 
 class CategoryCreateView(LoginRequiredMixin, CreateView):
     model = Category
@@ -86,13 +102,21 @@ class CategoryDeleteView(LoginRequiredMixin, DeleteView):
 class ProductListView(LoginRequiredMixin, SearchViewMixin, SingleTableMixin, ListView):
     model = Product
     table_class = ProductTable
-    search_fields = ['name', 'barcode', 'brand__name']
+    search_fields = ['name', 'barcode', 'brand__name', 'category__name']
     template_name = 'inventory/product_list.html'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        query = self.request.GET.get('q')
+        if query:
+            queryset = queryset.filter(name__icontains=query)
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['update_url'] = 'product_update'
         return context
+
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
