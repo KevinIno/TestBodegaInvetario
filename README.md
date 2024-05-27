@@ -6,7 +6,7 @@
 1. Clonar el repositorio: 
 
 ```
-git clone https://github.com/blasferna/invsist
+git clone github.com/KevinIno/TestBodegaInvetario
 ```
 
 2. Crear el entorno virtual
